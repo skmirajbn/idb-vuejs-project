@@ -2,7 +2,7 @@ name: Deploy to VPS
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   deploy:
@@ -12,54 +12,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name:
- 
-Deploy
- 
-using
- 
-SSH
-
-        
-uses:
- 
-appleboy/ssh-action@master
-
-        
-with:
-
-          
-host:
- 
-${{
- 
-secrets.HOST
- 
-}}
-
-          
-username:
- 
-${{
- 
-secrets.USERNAME
- 
-}}
-
-          
-key:
- 
-${{
- 
-secrets.PRIVATE_KEY
- 
-}}
-
-          
-port: ${{ secrets.PORT }}
+      - name: Deploy using SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.PRIVATE_KEY }}
+          port: ${{ secrets.PORT }}
           script: |
-            cd C:/websites/skmiraj/VueJs/idb-vuejs-project
+            cd /websites/skmiraj/VueJs/idb-vuejs-project
             eval "$(ssh-agent -s)"
-            ssh-add C:/Users/Administrator/.ssh/id_rsa
+            ssh-add /Users/Administrator/.ssh/id_rsa
             cd idb-vuejs-project
             git pull
