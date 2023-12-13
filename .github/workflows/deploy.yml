@@ -20,5 +20,5 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            cd C:\websites\skmiraj\VueJs
-            gitscript.sh
+            cd C:\websites\skmiraj\VueJs\idb-vuejs-project
+            git pull
