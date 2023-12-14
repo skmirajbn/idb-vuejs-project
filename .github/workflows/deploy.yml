@@ -20,5 +20,4 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            cd C:\websites\skmiraj\VueJs
-            update.bat
+            cd C:\websites\skmiraj\VueJs && update.bat
