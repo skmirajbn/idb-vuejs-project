@@ -6,7 +6,15 @@
                     <Link href="/login">Logo</Link>
                 </div>
                 <div class="w-2/4 text-4xl">
-                    <button class="btn btn-primary btn-md">Home</button>
+                    <Link href="/">
+                        <button class="btn btn-primary btn-md">Home</button>
+                    </Link>
+                    <Link href="/about">
+                        <button class="btn btn-primary btn-md">About</button>
+                    </Link>
+                    <Link href="/">
+                        <button class="btn btn-primary btn-md">Home</button>
+                    </Link>
                 </div>
                 <div class="w-1/4 text-4xl">Search</div>
             </div>
