@@ -22,7 +22,6 @@ jobs:
           script: |
             cd C:\websites\skmiraj\VueJs\idb-vuejs-project
             ssh-add C:\Users\Administrator\.ssh\id_rsa
-            cd idb-vuejs-project
             git pull
             composer install
             npm install
