@@ -24,7 +24,7 @@ Route::get('/about', function () {
     return Inertia::render('About');
 });
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-Route::get('/shop', [CartController::class, 'index'])->name('cart.index');
+Route::get('/shop', [CartController::class, 'index'])->name('cart.shop');
 
 
 
