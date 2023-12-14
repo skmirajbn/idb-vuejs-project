@@ -1,1 +1,3 @@
-This is a laravel Project
+Laravel Vuejs Project
+
+Live URL https://laravelvueidb.skmiraj.online
