@@ -2,7 +2,7 @@
     <div class="flex mx-auto max-w-7xl">
         <div class="w-1/4 text-4xl bg-green-400">Logo</div>
         <div class="w-2/4 text-4xl bg-green-400">
-            <Link :href="route('login')">Login</Link>
+            <Link :href="route('login')">Login Test</Link>
         </div>
         <div class="w-1/4 text-4xl bg-green-400">Search</div>
     </div>
