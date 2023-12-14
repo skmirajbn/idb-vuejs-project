@@ -13,7 +13,7 @@
                         <button class="btn btn-primary btn-sm">About</button>
                     </Link>
                     <Link href="/">
-                        <button class="btn btn-primary btn-sm">Home</button>
+                        <button class="btn btn-primary btn-sm">Contact</button>
                     </Link>
                     <a href="https://laravelvueidb.skmiraj.online">
                         <button class="btn btn-primary btn-sm">
