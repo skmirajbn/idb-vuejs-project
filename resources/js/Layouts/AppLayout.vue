@@ -1,49 +1,6 @@
 <template>
     <div class="min-h-screen">
-        <header class="bg-emerald-500">
-            <div class="container flex items-center py-2 mx-auto">
-                <div class="w-1/6 text-2xl">
-                    <Link href="/login">Logo</Link>
-                </div>
-                <div class="flex items-center w-4/6 gap-3">
-                    <Link href="/">
-                        <button class="btn btn-primary btn-sm">Home</button>
-                    </Link>
-                    <Link href="/about">
-                        <button class="btn btn-primary btn-sm">About</button>
-                    </Link>
-                    <Link href="/">
-                        <button class="btn btn-primary btn-sm">Contact</button>
-                    </Link>
-                    <a href="https://laravelvueidb.skmiraj.online">
-                        <button class="btn btn-primary btn-sm">
-                            Live Link
-                        </button>
-                    </a>
-                </div>
-                <div class="flex items-center justify-end w-1/6 gap-3">
-                    <div class="avatar">
-                        <div class="w-10 rounded-full">
-                            <img
-                                src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                            />
-                        </div>
-                    </div>
-                    <details class="dropdown">
-                        <summary class="btn btn-sm btn-primary">
-                            Sk Miraj
-                            <i class="fa-solid fa-angle-down"></i>
-                        </summary>
-                        <ul
-                            class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52"
-                        >
-                            <li><a>Profile</a></li>
-                            <li><a>Logout</a></li>
-                        </ul>
-                    </details>
-                </div>
-            </div>
-        </header>
+        <Header></Header>
         <div class="container py-6 mx-auto"><slot /></div>
         <footer class="p-10 footer bg-base-200 text-base-content">
             <nav>
@@ -89,7 +46,7 @@
 </template>
 
 <script setup>
-import { Link } from "@inertiajs/vue3";
+import Header from "./../Components/Header.vue";
 </script>
 
 <style lang="scss" scoped></style>
