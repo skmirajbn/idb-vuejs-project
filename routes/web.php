@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -25,6 +26,7 @@ Route::get('/about', function () {
 });
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::get('/shop', [CartController::class, 'index'])->name('cart.shop');
+
 
 
 
