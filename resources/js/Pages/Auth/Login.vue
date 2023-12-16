@@ -31,7 +31,6 @@ const submit = () => {
 
 <template>
     <Head title="Log in" />
-
     <AppLayout>
         <div class="max-w-xl mx-auto">
             <div v-if="status" class="mb-4 text-sm font-medium text-green-600">
