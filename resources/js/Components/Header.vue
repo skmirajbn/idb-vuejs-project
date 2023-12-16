@@ -41,6 +41,12 @@
                 <Link href="/">
                     <button class="btn btn-primary btn-sm">Contact</button>
                 </Link>
+                <Link :href="route('register')">
+                    <button class="btn btn-primary btn-sm">Register</button>
+                </Link>
+                <Link :href="route('login')">
+                    <button class="btn btn-primary btn-sm">Login</button>
+                </Link>
                 <a href="https://laravelvueidb.skmiraj.online">
                     <button class="btn btn-primary btn-sm">Live Link</button>
                 </a>
