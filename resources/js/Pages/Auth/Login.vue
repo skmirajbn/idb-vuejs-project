@@ -17,7 +17,7 @@ defineProps({
 });
 
 const form = useForm({
-    email: "",
+    phone: "",
     password: "",
     remember: false,
 });
@@ -41,19 +41,18 @@ const submit = () => {
             </h1>
             <form @submit.prevent="submit">
                 <div>
-                    <InputLabel for="email" value="Email" />
+                    <InputLabel for="phone" value="Phone" />
 
                     <TextInput
-                        id="email"
-                        type="email"
+                        id="phone"
+                        type="text"
                         class="block w-full mt-1"
-                        v-model="form.email"
-                        required
+                        v-model="form.phone"
                         autofocus
                         autocomplete="username"
                     />
 
-                    <InputError class="mt-2" :message="form.errors.email" />
+                    <InputError class="mt-2" :message="form.errors.phone" />
                 </div>
 
                 <div class="mt-4">
@@ -64,7 +63,6 @@ const submit = () => {
                         type="password"
                         class="block w-full mt-1"
                         v-model="form.password"
-                        required
                         autocomplete="current-password"
                     />
 
@@ -87,7 +85,7 @@ const submit = () => {
                     <Link
                         v-if="canResetPassword"
                         :href="route('password.request')"
-                        class="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        class="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     >
                         Forgot your password?
                     </Link>

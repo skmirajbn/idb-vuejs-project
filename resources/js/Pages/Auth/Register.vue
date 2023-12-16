@@ -9,6 +9,7 @@ import { Head, Link, useForm } from "@inertiajs/vue3";
 const form = useForm({
     name: "",
     email: "",
+    phone: "",
     password: "",
     password_confirmation: "",
 });
@@ -35,7 +36,6 @@ const submit = () => {
                         type="text"
                         class="block w-full mt-1"
                         v-model="form.name"
-                        required
                         autofocus
                         autocomplete="name"
                     />
@@ -48,14 +48,27 @@ const submit = () => {
 
                     <TextInput
                         id="email"
-                        type="email"
+                        type="text"
                         class="block w-full mt-1"
                         v-model="form.email"
-                        required
-                        autocomplete="username"
+                        autocomplete="email"
                     />
 
                     <InputError class="mt-2" :message="form.errors.email" />
+                </div>
+
+                <div class="mt-4">
+                    <InputLabel for="phone" value="Phone" />
+
+                    <TextInput
+                        id="phone"
+                        type="text"
+                        class="block w-full mt-1"
+                        v-model="form.phone"
+                        autocomplete="phone"
+                    />
+
+                    <InputError class="mt-2" :message="form.errors.phone" />
                 </div>
 
                 <div class="mt-4">
@@ -66,7 +79,6 @@ const submit = () => {
                         type="password"
                         class="block w-full mt-1"
                         v-model="form.password"
-                        required
                         autocomplete="new-password"
                     />
 
@@ -84,7 +96,6 @@ const submit = () => {
                         type="password"
                         class="block w-full mt-1"
                         v-model="form.password_confirmation"
-                        required
                         autocomplete="new-password"
                     />
 
