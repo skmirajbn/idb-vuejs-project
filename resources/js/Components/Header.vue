@@ -35,7 +35,7 @@
                 <Link href="/">
                     <button class="btn btn-primary btn-sm">Home</button>
                 </Link>
-                <Link href="/about">
+                <Link :href="route('about')">
                     <button class="btn btn-primary btn-sm">About</button>
                 </Link>
                 <Link href="/">
