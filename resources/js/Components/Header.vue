@@ -41,6 +41,9 @@
                 <Link href="/">
                     <button class="btn btn-primary btn-sm">Contact</button>
                 </Link>
+                <Link href="/">
+                    <button class="btn btn-primary btn-sm">Social</button>
+                </Link>
                 <Link :href="route('register')">
                     <button class="btn btn-primary btn-sm">Register</button>
                 </Link>
