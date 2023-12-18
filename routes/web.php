@@ -43,5 +43,12 @@ Route::middleware('auth')->group(function () {
 Route::get('/hello', function () {
     return "hello";
 });
+Route::get('/admin', function () {
+    dd(auth()->user());
+});
+
+Route::get('/test', function () {
+    dd(auth()->user());
+});
 
 require __DIR__ . '/auth.php';

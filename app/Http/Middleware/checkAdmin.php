@@ -13,10 +13,9 @@ class checkAdmin {
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next): Response {
-        // if (!auth()->user()->role_id == 1) {
-        //     echo auth()->user()->role_id;
-        //     return redirect('/');
-        // }
+        if ($request->user()->role_id != 1) {
+            return redirect('/');
+        }
         return $next($request);
     }
 }

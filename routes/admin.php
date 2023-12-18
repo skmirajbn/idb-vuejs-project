@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -14,6 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/dashboard', function () {
-    print_r(Auth::user());
-    dd(auth()->user());
+    $user = auth()->user();
+    dd($user);
 });
