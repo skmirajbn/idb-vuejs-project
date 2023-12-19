@@ -31,7 +31,7 @@
                     </svg>
                 </label>
             </div>
-            <div class="flex items-center w-3/6 gap-3">
+            <div v-if="!auth" class="flex items-center w-3/6 gap-3">
                 <Link href="/">
                     <button class="btn btn-primary btn-sm">Home</button>
                 </Link>
@@ -54,26 +54,55 @@
                     <button class="btn btn-primary btn-sm">Live Link</button>
                 </a>
             </div>
+            <div class="flex items-center w-3/6 gap-3" v-else>
+                <Link href="/dashboard">
+                    <button class="btn btn-primary btn-sm">Dashboard</button>
+                </Link>
+                <Link href="/profile">
+                    <button class="btn btn-primary btn-sm">Profile</button>
+                </Link>
+                <Link href="/">
+                    <button class="btn btn-primary btn-sm">FrontPage</button>
+                </Link>
+                <a href="https://laravelvueidb.skmiraj.online">
+                    <button class="btn btn-primary btn-sm">Live Link</button>
+                </a>
+            </div>
             <div class="flex items-center justify-end w-2/6 gap-3">
-                <div class="avatar">
-                    <div class="w-10 rounded-full">
-                        <img
-                            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                        />
+                <div class="flex items-center gap-3" v-if="user">
+                    <div class="avatar">
+                        <div class="w-10 rounded-full">
+                            <img
+                                src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                            />
+                        </div>
                     </div>
+                    <details class="dropdown">
+                        <summary class="btn btn-sm btn-primary">
+                            Sk Miraj
+                            <i class="fa-solid fa-angle-down"></i>
+                        </summary>
+                        <ul
+                            class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52"
+                        >
+                            <li><Link href="/profile">Profile</Link></li>
+                            <li><Link href="/dashboard">Dashboard</Link></li>
+                            <li>
+                                <Link
+                                    :href="route('logout')"
+                                    method="post"
+                                    as="button"
+                                    >Logout</Link
+                                >
+                            </li>
+                        </ul>
+                    </details>
                 </div>
-                <details class="dropdown">
-                    <summary class="btn btn-sm btn-primary">
-                        Sk Miraj
-                        <i class="fa-solid fa-angle-down"></i>
-                    </summary>
-                    <ul
-                        class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52"
-                    >
-                        <li><a>Profile</a></li>
-                        <li><a>Logout</a></li>
-                    </ul>
-                </details>
+                <div v-else>
+                    <Link href="/login">
+                        <button class="btn btn-secondary btn-sm">Login</button>
+                    </Link>
+                </div>
                 <Link href="/cart">
                     <div class="flex items-center gap-2">
                         <h3 class="font-bold">Cart</h3>
@@ -88,7 +117,17 @@
 </template>
 
 <script setup>
-import { Link } from "@inertiajs/vue3";
+import { Link, usePage } from "@inertiajs/vue3";
+import { onMounted } from "vue";
+
+defineProps({
+    auth: Boolean,
+});
+
+const user = usePage().props.auth.user;
+onMounted(() => {
+    console.log(usePage().props.auth.user);
+});
 </script>
 
 <style lang="scss" scoped></style>
