@@ -31,7 +31,7 @@
                     </svg>
                 </label>
             </div>
-            <div class="flex items-center w-4/6 gap-3">
+            <div class="flex items-center w-3/6 gap-3">
                 <Link href="/">
                     <button class="btn btn-primary btn-sm">Home</button>
                 </Link>
@@ -54,7 +54,7 @@
                     <button class="btn btn-primary btn-sm">Live Link</button>
                 </a>
             </div>
-            <div class="flex items-center justify-end w-1/6 gap-3">
+            <div class="flex items-center justify-end w-2/6 gap-3">
                 <div class="avatar">
                     <div class="w-10 rounded-full">
                         <img
