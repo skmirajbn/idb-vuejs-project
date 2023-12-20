@@ -29,6 +29,10 @@ class DistrictController extends Controller {
         $request->validate([
             'district' => 'required',
         ]);
+        // response json of inertia
+        return Inertia::render('Admin/Districts/Add', [
+            'message' => 'success',
+        ]);
     }
 
     /**
