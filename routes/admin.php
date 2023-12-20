@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\DistrictController;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/dashboard', function () {
-    $user = auth()->user();
-    dd($user);
-});
+Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+
+// Crud Districts
+Route::get('/district/all', [DistrictController::class, 'index'])->name('admin.district.all');
+Route::get('/district/add', [DistrictController::class, 'create'])->name('admin.district.add');
+Route::post('/district/add', [DistrictController::class, 'store'])->name('admin.district.store');

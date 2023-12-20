@@ -118,16 +118,12 @@
 
 <script setup>
 import { Link, usePage } from "@inertiajs/vue3";
-import { onMounted } from "vue";
 
 defineProps({
     auth: Boolean,
 });
 
 const user = usePage().props.auth.user;
-onMounted(() => {
-    console.log(usePage().props.auth.user);
-});
 </script>
 
 <style lang="scss" scoped></style>
