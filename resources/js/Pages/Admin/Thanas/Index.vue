@@ -20,6 +20,8 @@
                             <th>ID</th>
                             <th>Thana Name</th>
                             <th>District Name</th>
+                            <th>Delivery Charge</th>
+                            <th>View</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -28,6 +30,18 @@
                             <th>{{ thana.id }}</th>
                             <td class="font-bold">{{ thana.name }}</td>
                             <td class="font-bold">{{ thana.district.name }}</td>
+                            <td class="font-bold">
+                                {{ thana.delivery_charge }}
+                            </td>
+                            <td>
+                                <Link
+                                    :href="route('admin.thana.show', thana.id)"
+                                >
+                                    <button class="font-bold btn btn-info">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                </Link>
+                            </td>
                             <td class="flex gap-2">
                                 <Link
                                     :href="

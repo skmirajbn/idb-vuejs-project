@@ -78,7 +78,7 @@
 <script setup>
 import InputError from "@/Components/InputError.vue";
 import AdminLayout from "@/Layouts/AdminLayout.vue";
-import { Link, useForm } from "@inertiajs/vue3";
+import { Link, router, useForm } from "@inertiajs/vue3";
 import { inject } from "vue";
 
 defineProps({
@@ -106,6 +106,7 @@ const handleSubmit = () => {
                 title: "Thana Added",
                 text: data.props.message,
             });
+            router.replace(route("admin.thana.create"));
         },
         onError: (err) => {
             swal({

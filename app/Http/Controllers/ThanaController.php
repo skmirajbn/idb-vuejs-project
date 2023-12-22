@@ -50,27 +50,45 @@ class ThanaController extends Controller {
      * Display the specified resource.
      */
     public function show(Thana $thana) {
-        //
+        $thana->load('district');
+        return Inertia::render('Admin/Thanas/Show', compact('thana'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Thana $thana) {
-        //
+        $districts = District::all();
+        return Inertia::render('Admin/Thanas/Edit', compact('thana', 'districts'));
     }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Thana $thana) {
-        //
+        // validate
+        $request->validate([
+            'thana' => 'required',
+            'district_id' => 'required',
+            'delivery_charge' => 'required|numeric',
+        ]);
+        $thana = $thana->update([
+            'name' => $request->thana,
+            'district_id' => $request->district_id,
+            'delivery_charge' => $request->delivery_charge
+        ]);
+        if ($thana) {
+            return Inertia::render('Admin/Thanas/Edit', [
+                'message' => 'success',
+            ]);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Thana $thana) {
-        //
+        $thana->delete();
+        return redirect()->route('admin.thana.index');
     }
 }
