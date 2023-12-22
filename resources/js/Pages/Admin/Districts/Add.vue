@@ -27,12 +27,6 @@
                     <button type="submit" class="btn btn-primary">
                         Add District
                     </button>
-                    <div
-                        class="px-4 py-2 mx-auto text-xl text-center text-white rounded-lg bg-emerald-500 w-fit"
-                        v-if="message"
-                    >
-                        {{ message }}
-                    </div>
                 </form>
             </div>
         </div>
@@ -43,24 +37,35 @@
 import InputError from "@/Components/InputError.vue";
 import AdminLayout from "@/Layouts/AdminLayout.vue";
 import { useForm } from "@inertiajs/vue3";
+import { inject } from "vue";
 
-defineProps({
-    message: String,
-    default: () => "",
-});
+const swal = inject("$swal");
 
 const form = useForm({
     district: "",
     remember: false,
 });
-
-// Submit the form
 const handleSubmit = () => {
     console.log(form);
     form.post(route("admin.district.store"), {
         preserveState: true,
         onFinish: () => form.reset(),
-        onSuccess: (data) => console.log(data),
+        onSuccess: (data) => {
+            form.reset();
+            swal({
+                icon: "success",
+                title: "District Added",
+                text: data.props.message,
+            });
+        },
+        onError: (err) => {
+            console.log(err);
+            swal({
+                icon: "error",
+                title: "Oops...",
+                text: err.district,
+            });
+        },
     });
 };
 </script>

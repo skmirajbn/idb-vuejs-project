@@ -11,7 +11,8 @@ class DistrictController extends Controller {
      * Display a listing of the resource.
      */
     public function index() {
-        return Inertia::render('Admin/Districts/All');
+        $districts = District::all();
+        return Inertia::render('Admin/Districts/All', compact('districts'));
     }
 
     /**
@@ -29,10 +30,17 @@ class DistrictController extends Controller {
         $request->validate([
             'district' => 'required',
         ]);
-        // response json of inertia
-        return Inertia::render('Admin/Districts/Add', [
-            'message' => 'success',
+        $district = District::create([
+            'name' => $request->district
         ]);
+        if ($district) {
+            // response json of inertia
+            return Inertia::render('Admin/Districts/Add', [
+                'message' => 'success',
+            ]);
+        }
+
+
     }
 
     /**
@@ -60,6 +68,10 @@ class DistrictController extends Controller {
      * Remove the specified resource from storage.
      */
     public function destroy(District $district) {
-        //
+        // delete the district
+        $district->delete();
+        // return to all
+        return redirect()->route('admin.district.all');
+
     }
 }

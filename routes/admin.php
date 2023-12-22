@@ -22,3 +22,4 @@ Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admi
 Route::get('/district/all', [DistrictController::class, 'index'])->name('admin.district.all');
 Route::get('/district/add', [DistrictController::class, 'create'])->name('admin.district.add');
 Route::post('/district/add', [DistrictController::class, 'store'])->name('admin.district.store');
+Route::delete('/district/delete/{district}', [DistrictController::class, 'destroy'])->name('admin.district.delete');
