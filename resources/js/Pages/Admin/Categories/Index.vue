@@ -42,7 +42,11 @@
                             <td class="font-bold">
                                 <img
                                     class="object-cover rounded-lg w-14 h-14"
-                                    :src="'/storage/images/' + category.image"
+                                    :src="
+                                        route().t.url +
+                                        '/storage/images/' +
+                                        category.image
+                                    "
                                     alt=""
                                 />
                             </td>
@@ -95,7 +99,6 @@ import { inject } from "vue";
 defineProps({
     categories: Object,
 });
-
 const swal = inject("$swal");
 const deleteCategory = (id) => {
     router.visit(route("admin.category.destroy", id), {
