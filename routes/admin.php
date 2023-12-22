@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\DistrictController;
+use App\Http\Controllers\ThanaController;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,9 +20,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
 // Crud Districts
-Route::get('/district/all', [DistrictController::class, 'index'])->name('admin.district.all');
-Route::get('/district/add', [DistrictController::class, 'create'])->name('admin.district.add');
-Route::post('/district/add', [DistrictController::class, 'store'])->name('admin.district.store');
-Route::delete('/district/delete/{district}', [DistrictController::class, 'destroy'])->name('admin.district.delete');
-Route::get('/district/edit/{district}', [DistrictController::class, 'edit'])->name('admin.district.edit');
-Route::put('/district/edit/{district}', [DistrictController::class, 'update'])->name('admin.district.update');
+Route::resource('/district', DistrictController::class)->names('admin.district');
+Route::resource('/thana', ThanaController::class)->names('admin.thana');

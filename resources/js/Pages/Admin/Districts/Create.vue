@@ -6,7 +6,7 @@
                     <i class="fa-solid fa-building-circle-arrow-right"></i> Add
                     District
                 </h3>
-                <Link :href="route('admin.district.all')"
+                <Link :href="route('admin.district.index')"
                     ><button class="btn btn-primary">
                         All Districts
                     </button></Link

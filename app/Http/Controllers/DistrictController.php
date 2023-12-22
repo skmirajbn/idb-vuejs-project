@@ -10,16 +10,17 @@ class DistrictController extends Controller {
     /**
      * Display a listing of the resource.
      */
-    public function index() {
+    public function index(Request $request) {
         $districts = District::all();
-        return Inertia::render('Admin/Districts/All', compact('districts'));
+        // if this is an api call for json then return json data check request header if json expect
+        return Inertia::render('Admin/Districts/Index', compact('districts'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create() {
-        return Inertia::render('Admin/Districts/Add');
+        return Inertia::render('Admin/Districts/Create');
     }
 
     /**
@@ -35,7 +36,7 @@ class DistrictController extends Controller {
         ]);
         if ($district) {
             // response json of inertia
-            return Inertia::render('Admin/Districts/Add', [
+            return Inertia::render('Admin/Districts/Create', [
                 'message' => 'success',
             ]);
         }
@@ -82,7 +83,7 @@ class DistrictController extends Controller {
         // delete the district
         $district->delete();
         // return to all
-        return redirect()->route('admin.district.all');
+        return redirect()->route('admin.district.index');
 
     }
 }
