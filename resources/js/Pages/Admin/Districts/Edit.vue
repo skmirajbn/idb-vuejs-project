@@ -1,6 +1,6 @@
 <template>
     <AdminLayout>
-        <div class="w-full p-4 space-y-4 bg-gray-200">
+        <div class="w-full p-4 space-y-4 bg-gray-200 rounded-xl">
             <div class="flex justify-between">
                 <h3 class="text-2xl font-bold">
                     <i class="fa-solid fa-building-circle-arrow-right"></i>
