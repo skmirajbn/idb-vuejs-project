@@ -23,3 +23,5 @@ Route::get('/district/all', [DistrictController::class, 'index'])->name('admin.d
 Route::get('/district/add', [DistrictController::class, 'create'])->name('admin.district.add');
 Route::post('/district/add', [DistrictController::class, 'store'])->name('admin.district.store');
 Route::delete('/district/delete/{district}', [DistrictController::class, 'destroy'])->name('admin.district.delete');
+Route::get('/district/edit/{district}', [DistrictController::class, 'edit'])->name('admin.district.edit');
+Route::put('/district/edit/{district}', [DistrictController::class, 'update'])->name('admin.district.update');

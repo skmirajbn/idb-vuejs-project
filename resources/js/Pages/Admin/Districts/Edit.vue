@@ -3,8 +3,8 @@
         <div class="w-full p-4 space-y-4 bg-gray-200">
             <div class="flex justify-between">
                 <h3 class="text-2xl font-bold">
-                    <i class="fa-solid fa-building-circle-arrow-right"></i> Add
-                    District
+                    <i class="fa-solid fa-building-circle-arrow-right"></i>
+                    Update District
                 </h3>
                 <Link :href="route('admin.district.all')"
                     ><button class="btn btn-primary">
@@ -32,7 +32,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary">
-                        Add District
+                        Update District
                     </button>
                 </form>
             </div>
@@ -43,25 +43,29 @@
 <script setup>
 import InputError from "@/Components/InputError.vue";
 import AdminLayout from "@/Layouts/AdminLayout.vue";
-import { Link, useForm } from "@inertiajs/vue3";
+import { Link, useForm, usePage } from "@inertiajs/vue3";
 import { inject } from "vue";
-
+const page = usePage();
+defineProps({
+    district: Object,
+    default: "",
+});
+console.log(page.props.district.name);
 const swal = inject("$swal");
 
 const form = useForm({
-    district: "",
+    district: page.props.district.name,
     remember: false,
 });
 const handleSubmit = () => {
     console.log(form);
-    form.post(route("admin.district.store"), {
+    form.put(route("admin.district.update", page.props.district.id), {
         preserveState: true,
         onFinish: () => form.reset(),
         onSuccess: (data) => {
-            form.reset();
             swal({
                 icon: "success",
-                title: "District Added",
+                title: "District Updated",
                 text: data.props.message,
             });
         },

@@ -1,6 +1,6 @@
 <template>
     <AdminLayout>
-        <div class="w-full p-4 space-y-4 bg-white rounded-xl">
+        <div class="w-full p-4 space-y-4 bg-gray-200 rounded-xl">
             <div class="flex justify-between">
                 <h3 class="text-2xl font-bold">
                     <i class="fa-solid fa-building-circle-arrow-right"></i> All
@@ -27,7 +27,18 @@
                             <th>{{ district.id }}</th>
                             <td class="font-bold">{{ district.name }}</td>
                             <td class="flex gap-2">
-                                <button class="btn btn-primary">Edit</button>
+                                <Link
+                                    :href="
+                                        route(
+                                            'admin.district.edit',
+                                            district.id
+                                        )
+                                    "
+                                >
+                                    <button class="btn btn-primary">
+                                        Edit
+                                    </button></Link
+                                >
                                 <button
                                     class="btn btn-warning"
                                     @click="deleteDistrict(district.id)"
