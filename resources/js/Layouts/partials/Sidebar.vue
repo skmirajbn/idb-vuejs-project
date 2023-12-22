@@ -103,7 +103,7 @@
                 class="flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-blue-900 bg-blue-100 rounded-lg hover:bg-blue-200 focus:outline-none focus-visible:ring focus-visible:ring-blue-500/75"
             >
                 <span class="text-xl"
-                    ><i class="fa-solid fa-user"></i> Users</span
+                    ><i class="fa-solid fa-table-list"></i> Categories</span
                 >
                 <ChevronUpIcon
                     :class="open ? 'rotate-180 transform' : ''"
@@ -112,12 +112,13 @@
             </DisclosureButton>
             <DisclosurePanel class="px-4 pt-4 pb-2 text-white">
                 <div class="flex flex-col gap-3">
-                    <Link class=""
-                        ><i class="mr-2 fa-solid fa-users"></i> All Users
+                    <Link :href="route('admin.category.index')" class=""
+                        ><i class="pr-2 fa-solid fa-table-list"></i> All
+                        Categories
                     </Link>
-                    <Link class=""
-                        ><i class="mr-2 fa-solid fa-user-plus"></i>
-                        Add User
+                    <Link :href="route('admin.category.create')" class=""
+                        ><i class="pr-2 fa-solid fa-table-list"></i>
+                        Add Category
                     </Link>
                     <Link class=""
                         ><i class="mr-2 fa-solid fa-trash"></i>
