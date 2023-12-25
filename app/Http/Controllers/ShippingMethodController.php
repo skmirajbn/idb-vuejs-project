@@ -46,7 +46,7 @@ class ShippingMethodController extends Controller {
      * Show the form for editing the specified resource.
      */
     public function edit(ShippingMethod $shippingMethod) {
-        //
+        return Inertia::render('Admin/ShippingMethods/Edit', compact('shippingMethod'));
     }
 
     /**
@@ -60,6 +60,7 @@ class ShippingMethodController extends Controller {
      * Remove the specified resource from storage.
      */
     public function destroy(ShippingMethod $shippingMethod) {
-        //
+        $shippingMethod->delete();
+        return redirect()->route('admin.shipping-method.index');
     }
 }

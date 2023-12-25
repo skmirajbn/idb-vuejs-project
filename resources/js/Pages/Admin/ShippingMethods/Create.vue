@@ -6,7 +6,7 @@
                     <i class="fa-solid fa-building-circle-arrow-right"></i> Add
                     Shipping Method
                 </h3>
-                <Link :href="route('admin.district.index')"
+                <Link :href="route('admin.shipping-method.index')"
                     ><button class="btn btn-primary">
                         All Shipping Methods
                     </button></Link

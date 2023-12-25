@@ -4,11 +4,11 @@
             <div class="flex justify-between">
                 <h3 class="text-2xl font-bold">
                     <i class="fa-solid fa-building-circle-arrow-right"></i>
-                    Update District
+                    Update Shipping Method
                 </h3>
-                <Link :href="route('admin.district.index')"
+                <Link :href="route('admin.shipping-method.index')"
                     ><button class="btn btn-primary">
-                        All Districts
+                        All Shipping Methods
                     </button></Link
                 >
             </div>
@@ -23,16 +23,13 @@
                             class="rounded-lg"
                             id="name"
                             type="text"
-                            v-model="form.district"
+                            v-model="form.name"
                         />
-                        <InputError
-                            class="mt-2"
-                            :message="form.errors.district"
-                        />
+                        <InputError class="mt-2" :message="form.errors.name" />
                     </div>
 
                     <button type="submit" class="btn btn-primary">
-                        Update District
+                        Update Shipping Method
                     </button>
                 </form>
             </div>
@@ -47,36 +44,39 @@ import { Link, useForm, usePage } from "@inertiajs/vue3";
 import { inject } from "vue";
 const page = usePage();
 defineProps({
-    district: Object,
+    shippingMethod: Object,
     default: "",
 });
-console.log(page.props.district.name);
+console.log(page.props.shippingMethod.name);
 const swal = inject("$swal");
 
 const form = useForm({
-    district: page.props.district.name,
+    name: page.props.shippingMethod.name,
     remember: false,
 });
 const handleSubmit = () => {
     console.log(form);
-    form.put(route("admin.district.update", page.props.district.id), {
-        preserveState: true,
-        onFinish: () => form.reset(),
-        onSuccess: (data) => {
-            swal({
-                icon: "success",
-                title: "District Updated",
-                text: data.props.message,
-            });
-        },
-        onError: (err) => {
-            console.log(err);
-            swal({
-                icon: "error",
-                title: "Oops...",
-                text: err.district,
-            });
-        },
-    });
+    form.put(
+        route("admin.shipping-method.update", page.props.shippingMethod.id),
+        {
+            preserveState: true,
+            onFinish: () => form.reset(),
+            onSuccess: (data) => {
+                swal({
+                    icon: "success",
+                    title: "ShippingMethod Updated",
+                    text: data.props.message,
+                });
+            },
+            onError: (err) => {
+                console.log(err);
+                swal({
+                    icon: "error",
+                    title: "Oops...",
+                    text: err.district,
+                });
+            },
+        }
+    );
 };
 </script>
