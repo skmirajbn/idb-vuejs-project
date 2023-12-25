@@ -25,6 +25,56 @@
                         />
                         <InputError class="mt-2" :message="form.errors.user" />
                     </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="text-xl font-bold" for="name"
+                            >Email</label
+                        >
+                        <input
+                            class="rounded-lg"
+                            id="email"
+                            type="text"
+                            v-model="form.email"
+                        />
+                        <InputError class="mt-2" :message="form.errors.email" />
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="text-xl font-bold" for="name"
+                            >Password</label
+                        >
+                        <input
+                            class="rounded-lg"
+                            id="password"
+                            type="password"
+                            v-model="form.password"
+                        />
+                        <InputError
+                            class="mt-2"
+                            :message="form.errors.password"
+                        />
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="text-xl font-bold" for="name"
+                            >Avatar</label
+                        >
+                        <input class="" id="phone" type="file" />
+                        <InputError
+                            class="mt-2"
+                            :message="form.errors.avatar"
+                        />
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="text-xl font-bold" for="name">Role</label>
+                        <select class="rounded-lg" name="role_id" id="role_id">
+                            <option value="1">Admin</option>
+                            <option value="2">Editor</option>
+                            <option value="3">Moderator</option>
+                            <option value="4">Super Admin</option>
+                        </select>
+                        <InputError
+                            class="mt-2"
+                            :message="form.errors.avatar"
+                        />
+                    </div>
 
                     <button type="submit" class="btn btn-primary">
                         Add User

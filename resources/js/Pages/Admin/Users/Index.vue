@@ -4,9 +4,9 @@
             <div class="flex justify-between">
                 <h3 class="text-2xl font-bold">
                     <i class="fa-solid fa-building-circle-arrow-right"></i> All
-                    Districts
+                    Users
                 </h3>
-                <Link :href="route('admin.district.create')">
+                <Link :href="route('admin.user.create')">
                     <button class="block btn btn-primary">
                         Add New <i class="fa-solid fa-plus"></i>
                     </button>
@@ -19,18 +19,27 @@
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Avatar</th>
+                            <th>Role</th>
+
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody class="text-lg">
-                        <tr v-for="district in districts">
-                            <th>{{ district.id }}</th>
-                            <td class="font-bold">{{ district.name }}</td>
+                        <tr v-for="user in users">
+                            <th>{{ user.id }}</th>
+                            <td class="font-bold">{{ user.name }}</td>
+                            <td class="font-bold">{{ user.email }}</td>
+                            <td class="font-bold">{{ user.phone }}</td>
+                            <td class="font-bold">{{ user.phone }}</td>
+                            <td class="font-bold">{{ user.role.name }}</td>
                             <td class="flex gap-2">
                                 <Link
                                     :href="
-                                        route('admin.district.edit', {
-                                            district: district.id,
+                                        route('admin.user.edit', {
+                                            user: user.id,
                                         })
                                     "
                                 >
@@ -40,7 +49,7 @@
                                 >
                                 <button
                                     class="btn btn-warning"
-                                    @click="deleteDistrict(district.id)"
+                                    @click="deleteUser(user.id)"
                                 >
                                     Delete
                                 </button>
@@ -59,17 +68,17 @@ import AdminLayout from "@/Layouts/AdminLayout.vue";
 import { Link, router } from "@inertiajs/vue3";
 import { inject } from "vue";
 defineProps({
-    districts: Object,
+    users: Object,
 });
 const swal = inject("$swal");
-const deleteDistrict = (id) => {
-    router.visit(route("admin.district.destroy", id), {
+const deleteUser = (id) => {
+    router.visit(route("admin.user.destroy", id), {
         method: "delete",
         onSuccess: () => {
             swal({
                 icon: "success",
-                title: "District Deleted",
-                text: "District Deleted Successfully",
+                title: "User Deleted",
+                text: "User Deleted Successfully",
             });
         },
     });
