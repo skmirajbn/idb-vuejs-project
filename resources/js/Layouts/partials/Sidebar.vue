@@ -35,6 +35,35 @@
                 class="flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-blue-900 bg-blue-100 rounded-lg hover:bg-blue-200 focus:outline-none focus-visible:ring focus-visible:ring-blue-500/75"
             >
                 <span class="text-xl"
+                    ><i class="fa-solid fa-box"></i> Products</span
+                >
+                <ChevronUpIcon
+                    :class="open ? 'rotate-180 transform' : ''"
+                    class="w-5 h-5 text-blue-500"
+                />
+            </DisclosureButton>
+            <DisclosurePanel class="px-4 pt-4 pb-2 text-white">
+                <div class="flex flex-col gap-3">
+                    <Link :href="route('admin.user.index')" class=""
+                        ><i class="pr-2 fa-solid fa-boxes-stacked"></i> All
+                        Products
+                    </Link>
+                    <Link :href="route('admin.product.create')" class=""
+                        ><i class="pr-2 fa-solid fa-box"></i>
+                        Add Product
+                    </Link>
+                    <Link class=""
+                        ><i class="mr-2 fa-solid fa-trash"></i>
+                        Trash
+                    </Link>
+                </div>
+            </DisclosurePanel>
+        </Disclosure>
+        <Disclosure v-slot="{ open }">
+            <DisclosureButton
+                class="flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-blue-900 bg-blue-100 rounded-lg hover:bg-blue-200 focus:outline-none focus-visible:ring focus-visible:ring-blue-500/75"
+            >
+                <span class="text-xl"
                     ><i class="fa-solid fa-building-circle-arrow-right"></i>
                     Districts</span
                 >
@@ -162,7 +191,7 @@
                 class="flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-blue-900 bg-blue-100 rounded-lg hover:bg-blue-200 focus:outline-none focus-visible:ring focus-visible:ring-blue-500/75"
             >
                 <span class="text-xl"
-                    ><i class="fa-solid fa-user"></i> Users</span
+                    ><i class="fa-solid fa-sitemap"></i> Variations</span
                 >
                 <ChevronUpIcon
                     :class="open ? 'rotate-180 transform' : ''"
@@ -171,12 +200,42 @@
             </DisclosureButton>
             <DisclosurePanel class="px-4 pt-4 pb-2 text-white">
                 <div class="flex flex-col gap-3">
-                    <Link class=""
-                        ><i class="mr-2 fa-solid fa-users"></i> All Users
+                    <Link :href="route('admin.variation.index')" class=""
+                        ><i class="pr-2 fa-solid fa-sitemap"></i> All Variations
+                    </Link>
+                    <Link :href="route('admin.variation.create')" class=""
+                        ><i class="pr-2 fa-solid fa-sitemap"></i>
+                        Add Variation
                     </Link>
                     <Link class=""
-                        ><i class="mr-2 fa-solid fa-user-plus"></i>
-                        Add User
+                        ><i class="mr-2 fa-solid fa-trash"></i>
+                        Trash
+                    </Link>
+                </div>
+            </DisclosurePanel>
+        </Disclosure>
+        <Disclosure v-slot="{ open }">
+            <DisclosureButton
+                class="flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-blue-900 bg-blue-100 rounded-lg hover:bg-blue-200 focus:outline-none focus-visible:ring focus-visible:ring-blue-500/75"
+            >
+                <span class="text-xl"
+                    ><i class="fa-solid fa-object-ungroup"></i> Variations
+                    Options</span
+                >
+                <ChevronUpIcon
+                    :class="open ? 'rotate-180 transform' : ''"
+                    class="w-5 h-5 text-blue-500"
+                />
+            </DisclosureButton>
+            <DisclosurePanel class="px-4 pt-4 pb-2 text-white">
+                <div class="flex flex-col gap-3">
+                    <Link :href="route('admin.variationOption.index')" class=""
+                        ><i class="pr-2 fa-solid fa-object-ungroup"></i> All
+                        Variation Options
+                    </Link>
+                    <Link :href="route('admin.variationOption.create')" class=""
+                        ><i class="pr-2 fa-solid fa-object-ungroup"></i>
+                        Add Variation Option
                     </Link>
                     <Link class=""
                         ><i class="mr-2 fa-solid fa-trash"></i>
