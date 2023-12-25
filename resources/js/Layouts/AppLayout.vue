@@ -1,7 +1,9 @@
 <template>
-    <div class="min-h-screen">
-        <Header></Header>
-        <div class="container py-6 mx-auto"><slot /></div>
+    <div class="flex flex-col justify-between min-h-screen">
+        <div>
+            <Header></Header>
+            <div class="container py-6 mx-auto"><slot /></div>
+        </div>
         <footer class="p-10 footer bg-base-200 text-base-content">
             <nav>
                 <header class="footer-title">Services</header>

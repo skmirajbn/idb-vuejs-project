@@ -122,6 +122,7 @@ const form = useForm({
     image: null,
     description: page.props.category.description,
     remember: true,
+    _method: "PUT",
 });
 
 const handleImageInput = (event) => {
@@ -141,7 +142,7 @@ const handleImageInput = (event) => {
 };
 const id = page.props.category.id;
 const handleSubmit = () => {
-    form.put(route("admin.category.update", id), {
+    form.post(route("admin.category.update", id), {
         preserveState: true,
         onSuccess: (data) => {
             swal({

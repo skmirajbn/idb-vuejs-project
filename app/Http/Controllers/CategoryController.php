@@ -69,14 +69,7 @@ class CategoryController extends Controller {
      * Update the specified resource in storage.
      */
     public function update(Request $request, Category $category) {
-        // update the category with validation
-        // $request->validate([
-        //     'category' => 'required',
-        //     'description' => 'required',
-        //     'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        // ]);
-        dd($request->all());
-        // if image is included then move the image to images folder and update the database 
+
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             // generate a unique name for the image and save to the storage
@@ -97,6 +90,7 @@ class CategoryController extends Controller {
      * Remove the specified resource from storage.
      */
     public function destroy(Category $category) {
-        //
+        $category->delete();
+        return redirect()->route('admin.category.index');
     }
 }
