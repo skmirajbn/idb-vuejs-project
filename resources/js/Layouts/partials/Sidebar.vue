@@ -16,10 +16,10 @@
             </DisclosureButton>
             <DisclosurePanel class="px-4 pt-4 pb-2 text-white">
                 <div class="flex flex-col gap-3">
-                    <Link class=""
+                    <Link :href="route('admin.user.index')" class=""
                         ><i class="mr-2 fa-solid fa-users"></i> All Users
                     </Link>
-                    <Link class=""
+                    <Link :href="route('admin.user.create')" class=""
                         ><i class="mr-2 fa-solid fa-user-plus"></i>
                         Add User
                     </Link>
