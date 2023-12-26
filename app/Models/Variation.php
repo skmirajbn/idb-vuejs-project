@@ -14,5 +14,8 @@ class Variation extends Model {
     public function category() {
         return $this->belongsTo(Category::class);
     }
+    public function variationOptions() {
+        return $this->hasMany(VariationOption::class);
+    }
 
 }

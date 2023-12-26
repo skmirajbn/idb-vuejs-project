@@ -19,6 +19,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
+                            <th>Category</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -26,6 +27,9 @@
                         <tr v-for="variation in variations">
                             <th>{{ variation.id }}</th>
                             <td class="font-bold">{{ variation.name }}</td>
+                            <td class="font-bold">
+                                {{ variation.category.name }}
+                            </td>
                             <td class="flex gap-2">
                                 <Link
                                     :href="

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\Category;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ProductController extends Controller {
@@ -12,21 +14,47 @@ class ProductController extends Controller {
      * Display a listing of the resource.
      */
     public function index() {
-        //
+        $products = Product::with('category')->get();
+        return Inertia::render('Admin/Products/Index', compact('products'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create() {
-        return Inertia::render('Admin/Products/Create');
+        $categories = Category::all();
+        return Inertia::render('Admin/Products/Create', compact('categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProductRequest $request) {
-        //
+    public function store(Request $request) {
+        // validating the request
+        $validated = $request->validate([
+            'name' => 'required',
+            'category_id' => 'required',
+            'price' => 'required|numeric',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'status' => 'required',
+            'description' => 'required',
+        ]);
+
+        // if image is available save to storage and save the image name to database
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('public/images', $imageName);
+            $validated['image'] = $imageName;
+        }
+        $product = Product::create($validated);
+        if ($product) {
+            return Inertia::render('Admin/Products/Index',
+                [
+                    'message' => 'success',
+                ]
+            );
+        }
     }
 
     /**

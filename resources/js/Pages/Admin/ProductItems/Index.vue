@@ -4,9 +4,9 @@
             <div class="flex justify-between">
                 <h3 class="text-2xl font-bold">
                     <i class="fa-solid fa-building-circle-arrow-right"></i> All
-                    Products
+                    Districts
                 </h3>
-                <Link :href="route('admin.product.create')">
+                <Link :href="route('admin.district.create')">
                     <button class="block btn btn-primary">
                         Add New <i class="fa-solid fa-plus"></i>
                     </button>
@@ -19,33 +19,18 @@
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
-                            <th>Description</th>
-                            <th>Image</th>
-                            <th>Price</th>
-                            <th>Category</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody class="text-lg">
-                        <tr v-for="product in products">
-                            <th>{{ product.id }}</th>
-                            <td class="font-bold">{{ product.name }}</td>
-                            <td class="font-bold">{{ product.description }}</td>
-                            <td>
-                                <img
-                                    class="object-cover rounded-lg w-14 h-14"
-                                    :src="
-                                        route().t.url +
-                                        '/storage/images/' +
-                                        product.image
-                                    "
-                                />
-                            </td>
+                        <tr v-for="district in districts">
+                            <th>{{ district.id }}</th>
+                            <td class="font-bold">{{ district.name }}</td>
                             <td class="flex gap-2">
                                 <Link
                                     :href="
-                                        route('admin.product.edit', {
-                                            product: product.id,
+                                        route('admin.district.edit', {
+                                            district: district.id,
                                         })
                                     "
                                 >
@@ -55,7 +40,7 @@
                                 >
                                 <button
                                     class="btn btn-warning"
-                                    @click="deleteProduct(product.id)"
+                                    @click="deleteDistrict(district.id)"
                                 >
                                     Delete
                                 </button>
@@ -74,17 +59,17 @@ import AdminLayout from "@/Layouts/AdminLayout.vue";
 import { Link, router } from "@inertiajs/vue3";
 import { inject } from "vue";
 defineProps({
-    products: Object,
+    districts: Object,
 });
 const swal = inject("$swal");
-const deleteProduct = (id) => {
-    router.visit(route("admin.product.destroy", id), {
+const deleteDistrict = (id) => {
+    router.visit(route("admin.district.destroy", id), {
         method: "delete",
         onSuccess: () => {
             swal({
                 icon: "success",
-                title: "Product Deleted",
-                text: "Product Deleted Successfully",
+                title: "District Deleted",
+                text: "District Deleted Successfully",
             });
         },
     });

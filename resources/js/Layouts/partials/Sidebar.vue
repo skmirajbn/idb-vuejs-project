@@ -44,13 +44,42 @@
             </DisclosureButton>
             <DisclosurePanel class="px-4 pt-4 pb-2 text-white">
                 <div class="flex flex-col gap-3">
-                    <Link :href="route('admin.user.index')" class=""
+                    <Link :href="route('admin.product.index')" class=""
                         ><i class="pr-2 fa-solid fa-boxes-stacked"></i> All
                         Products
                     </Link>
                     <Link :href="route('admin.product.create')" class=""
                         ><i class="pr-2 fa-solid fa-box"></i>
                         Add Product
+                    </Link>
+                    <Link class=""
+                        ><i class="mr-2 fa-solid fa-trash"></i>
+                        Trash
+                    </Link>
+                </div>
+            </DisclosurePanel>
+        </Disclosure>
+        <Disclosure v-slot="{ open }">
+            <DisclosureButton
+                class="flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-blue-900 bg-blue-100 rounded-lg hover:bg-blue-200 focus:outline-none focus-visible:ring focus-visible:ring-blue-500/75"
+            >
+                <span class="text-xl"
+                    ><i class="fa-solid fa-box"></i> Product Items</span
+                >
+                <ChevronUpIcon
+                    :class="open ? 'rotate-180 transform' : ''"
+                    class="w-5 h-5 text-blue-500"
+                />
+            </DisclosureButton>
+            <DisclosurePanel class="px-4 pt-4 pb-2 text-white">
+                <div class="flex flex-col gap-3">
+                    <Link :href="route('admin.productItem.index')" class=""
+                        ><i class="pr-2 fa-solid fa-boxes-stacked"></i> All
+                        Product Items
+                    </Link>
+                    <Link :href="route('admin.productItem.create')" class=""
+                        ><i class="pr-2 fa-solid fa-box"></i>
+                        Add Product Item
                     </Link>
                     <Link class=""
                         ><i class="mr-2 fa-solid fa-trash"></i>

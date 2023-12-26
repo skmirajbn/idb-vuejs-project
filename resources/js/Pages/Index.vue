@@ -28,14 +28,11 @@
             </h2>
             <div class="grid grid-cols-4 gap-8">
                 <!-- Single Product Card -->
-                <ProductCard></ProductCard>
-                <ProductCard></ProductCard>
-                <ProductCard></ProductCard>
-                <ProductCard></ProductCard>
-                <ProductCard></ProductCard>
-                <ProductCard></ProductCard>
-                <ProductCard></ProductCard>
-                <ProductCard></ProductCard>
+                <ProductCard
+                    :product="product"
+                    v-for="product in products"
+                    :key="product.id"
+                ></ProductCard>
             </div>
         </section>
     </AppLayout>
@@ -45,7 +42,9 @@
 import { Head, Link } from "@inertiajs/vue3";
 import ProductCard from "./../Components/ProductCard.vue";
 import AppLayout from "./../Layouts/AppLayout.vue";
-defineProps({});
+defineProps({
+    products: Object,
+});
 </script>
 
 <style scoped></style>

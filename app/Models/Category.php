@@ -17,4 +17,7 @@ class Category extends Model {
     public function parentCategory() {
         return $this->belongsTo(Category::class, 'parent_category_id');
     }
+    public function variations() {
+        return $this->hasMany(Variation::class);
+    }
 }
