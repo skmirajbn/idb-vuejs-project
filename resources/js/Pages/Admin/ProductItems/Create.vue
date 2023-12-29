@@ -109,7 +109,12 @@
                         <label class="text-xl font-bold" for="name"
                             >Variation Options</label
                         >
-                        <select class="rounded-lg" name="" id="">
+                        <select
+                            class="rounded-lg"
+                            name=""
+                            id=""
+                            v-model="form.variation_option_id"
+                        >
                             <option value="">Select Variation Options</option>
                             <option
                                 :value="variationOption.id"
@@ -154,6 +159,7 @@ const form = useForm({
     stock: "",
     price: "",
     variation_id: "",
+    variation_option_id: "",
     remember: true,
 });
 
