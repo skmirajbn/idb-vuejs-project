@@ -14,7 +14,8 @@ class ProductItemController extends Controller {
      * Display a listing of the resource.
      */
     public function index() {
-        //
+        $productItems = ProductItem::with('product', 'variationOption')->get();
+        return Inertia::render('Admin/ProductItems/Index', compact('productItems'));
     }
 
     /**
@@ -32,7 +33,6 @@ class ProductItemController extends Controller {
      * Store a newly created resource in storage.
      */
     public function store(Request $request) {
-        dd($request->all());
 
         DB::beginTransaction();
 
@@ -55,7 +55,7 @@ class ProductItemController extends Controller {
             $productItem = ProductItem::create([
                 'product_id' => $request->product_id,
                 'price' => $request->price,
-                'stock' => $request->quantity,
+                'stock' => $request->stock,
                 'image' => $imageName,
             ]);
 

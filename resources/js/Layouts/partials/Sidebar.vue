@@ -75,7 +75,7 @@
                 <div class="flex flex-col gap-3">
                     <Link :href="route('admin.productItem.index')" class=""
                         ><i class="pr-2 fa-solid fa-boxes-stacked"></i> All
-                        Product Items
+                        Product Item
                     </Link>
                     <Link :href="route('admin.productItem.create')" class=""
                         ><i class="pr-2 fa-solid fa-box"></i>

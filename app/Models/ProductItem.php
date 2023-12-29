@@ -14,4 +14,11 @@ class ProductItem extends Model {
         'image',
         'stock'
     ];
+
+    public function product() {
+        return $this->belongsTo(Product::class);
+    }
+    public function variationOption() {
+        return $this->belongsTo(VariationOption::class);
+    }
 }
