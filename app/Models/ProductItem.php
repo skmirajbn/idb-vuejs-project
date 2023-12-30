@@ -22,4 +22,7 @@ class ProductItem extends Model {
     public function variationOptions() {
         return $this->BelongsToMany(VariationOption::class, 'product_configurations', 'product_item_id', 'variation_option_id');
     }
+    public function productConfigurations() {
+        return $this->hasMany(ProductConfiguration::class);
+    }
 }

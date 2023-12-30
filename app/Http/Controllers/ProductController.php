@@ -17,7 +17,8 @@ class ProductController extends Controller {
      * Display a listing of the resource.
      */
     public function index() {
-        $products = Product::with('category')->get();
+        $products = Product::with('category', 'productItems.productConfigurations.variationOption.variation')->get();
+        // return $products;
         return Inertia::render('Admin/Products/Index', compact('products'));
     }
 
@@ -204,7 +205,10 @@ class ProductController extends Controller {
      * Display the specified resource.
      */
     public function show(Product $product) {
-        //
+        $product->load('category', 'productItems.productConfigurations.variationOption.variation');
+        return Inertia::render('Admin/Products/Show', [
+            'product' => $product,
+        ]);
     }
 
     /**
@@ -225,6 +229,8 @@ class ProductController extends Controller {
      * Remove the specified resource from storage.
      */
     public function destroy(Product $product) {
-        //
+        // delete will relations
+        $product->delete();
+        return redirect()->route('admin.product.index')->with('message', 'Product deleted successfully');
     }
 }

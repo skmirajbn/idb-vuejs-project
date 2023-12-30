@@ -3,10 +3,10 @@
         <div class="w-full p-4 space-y-4 bg-gray-200 rounded-xl">
             <div class="flex justify-between">
                 <h3 class="text-2xl font-bold">
-                    <i class="fa-solid fa-building-circle-arrow-right"></i> All
-                    Products
+                    <i class="fa-solid fa-building-circle-arrow-right"></i>
+                    Product Variations
                 </h3>
-                <Link :href="route('admin.product.create')">
+                <Link :href="route('admin.productItem.create')">
                     <button class="block btn btn-primary">
                         Add New <i class="fa-solid fa-plus"></i>
                     </button>
@@ -15,37 +15,40 @@
             <div class="overflow-x-auto">
                 <table class="table">
                     <!-- head -->
+
                     <thead class="text-xl text-white bg-emerald-600">
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
-                            <th>Description</th>
-                            <th>Price</th>
-                            <th>Category</th>
-                            <th>Variations</th>
+                            <th
+                                v-for="product_configuration in product
+                                    .product_items[0].product_configurations"
+                            >
+                                {{
+                                    product_configuration.variation_option
+                                        .variation.name
+                                }}
+                            </th>
                             <th>Image</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody class="text-lg">
-                        <tr v-for="product in products">
-                            <th>{{ product.id }}</th>
+                        <tr
+                            v-for="(
+                                productItem, index
+                            ) in product.product_items"
+                        >
+                            <th>{{ productItem.id }}</th>
                             <td class="font-bold">{{ product.name }}</td>
-                            <td class="font-bold">{{ product.description }}</td>
-                            <td class="font-bold">{{ product.price }}</td>
-                            <td class="font-bold">
-                                {{ product.category.name }}
-                            </td>
-                            <td class="font-bold">
-                                {{ product.product_items.length }}
-                                <Link
-                                    :href="
-                                        route('admin.product.show', {
-                                            product: product.id,
-                                        })
-                                    "
-                                    ><i class="pl-2 fa-solid fa-eye"></i
-                                ></Link>
+                            <td
+                                v-for="product_configuration in product
+                                    .product_items[index]
+                                    .product_configurations"
+                            >
+                                {{
+                                    product_configuration.variation_option.value
+                                }}
                             </td>
                             <td>
                                 <img
@@ -53,15 +56,16 @@
                                     :src="
                                         route().t.url +
                                         '/storage/images/' +
-                                        product.image
+                                        productItem.image
                                     "
+                                    alt=""
                                 />
                             </td>
                             <td class="flex gap-2">
                                 <Link
                                     :href="
-                                        route('admin.product.edit', {
-                                            product: product.id,
+                                        route('admin.productItem.edit', {
+                                            product_item: productItem.id,
                                         })
                                     "
                                 >
@@ -71,7 +75,7 @@
                                 >
                                 <button
                                     class="btn btn-warning"
-                                    @click="deleteProduct(product.id)"
+                                    @click="deleteProductItem(district.id)"
                                 >
                                     Delete
                                 </button>
@@ -90,17 +94,18 @@ import AdminLayout from "@/Layouts/AdminLayout.vue";
 import { Link, router } from "@inertiajs/vue3";
 import { inject } from "vue";
 defineProps({
-    products: Object,
+    category: Object,
+    product: Object,
 });
 const swal = inject("$swal");
-const deleteProduct = (id) => {
-    router.visit(route("admin.product.destroy", id), {
+const deleteProductItem = (id) => {
+    router.visit(route("admin.district.destroy", id), {
         method: "delete",
         onSuccess: () => {
             swal({
                 icon: "success",
-                title: "Product Deleted",
-                text: "Product Deleted Successfully",
+                title: "ProductItem Deleted",
+                text: "ProductItem Deleted Successfully",
             });
         },
     });

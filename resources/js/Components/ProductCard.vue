@@ -2,6 +2,7 @@
     <div class="shadow-xl card bg-base-100">
         <figure>
             <img
+                class="object-cover w-full h-60"
                 :src="route().t.url + '/storage/images/' + product.image"
                 alt="Shoes"
             />
