@@ -27,7 +27,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
-// Crud Districts
 Route::resource('/district', DistrictController::class)->names('admin.district');
 Route::resource('/thana', ThanaController::class)->names('admin.thana');
 Route::resource('/category', CategoryController::class)->names('admin.category');

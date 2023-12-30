@@ -97,8 +97,8 @@
                     />
 
                     <!-- Variatoins Section -->
-                    <h3 class="text-xl font-bold">Variations</h3>
-                    <div v-if="hasVariation" class="">
+                    <div v-if="hasVariation" class="space-y-4">
+                        <h3 class="text-xl font-bold">Variations</h3>
                         <div
                             class="flex flex-col gap-4 p-6 bg-gray-400 rounded-lg"
                         >
@@ -109,12 +109,18 @@
                                 <label class="text-xl font-bold" for="name">
                                     {{ variation.name }}
                                 </label>
-                                <select class="rounded-lg" name="" id="">
+                                <select
+                                    class="rounded-lg"
+                                    id=""
+                                    v-model="
+                                        form.variation_options[variation.id]
+                                    "
+                                >
                                     <option value="">
                                         Select {{ variation.name }}
                                     </option>
                                     <option
-                                        :value="option.value"
+                                        :value="option.id"
                                         v-for="option in variation.variation_options"
                                     >
                                         {{ option.value }}
@@ -150,7 +156,6 @@
         </div>
     </AdminLayout>
 </template>
-
 <script setup>
 import InputError from "@/Components/InputError.vue";
 import AdminLayout from "@/Layouts/AdminLayout.vue";
@@ -161,10 +166,13 @@ const swal = inject("$swal");
 const imageSrc = ref(null);
 const page = usePage();
 
+// Define props
 defineProps({
     categories: Object,
     default: "",
 });
+
+// Variables
 const hasVariation = ref(false);
 let selectedCategory = ref({});
 const form = useForm({
@@ -175,19 +183,26 @@ const form = useForm({
     price: "",
     status: 1,
     stock: "",
-
+    variation_options: {},
+    variation_options_ids: [],
     remember: false,
 });
 
+// Event handlers
 const handleCategoryChange = () => {
     let categories = page.props.categories;
     let selectectCategoryId = form.category_id;
     selectedCategory = categories.find(
         (category) => category.id == selectectCategoryId
     );
-    console.log(selectedCategory);
+
     if (selectedCategory.variations.length > 0) {
         hasVariation.value = true;
+
+        // Set initial blank value for each variation
+        selectedCategory.variations.forEach((variation) => {
+            form.variation_options[variation.id] = "";
+        });
     } else {
         hasVariation.value = false;
     }
@@ -206,11 +221,16 @@ const handlePhotoChange = (e) => {
         reader.readAsDataURL(file);
     }
 };
+
 const handleSubmit = () => {
-    console.log(form);
+    // make array of selected variation ids
+    selectedCategory.variations.forEach((variation) => {
+        form.variation_options_ids.push(variation.id);
+    });
+
+    // submit form
     form.post(route("admin.product.store"), {
         preserveState: true,
-
         onSuccess: (data) => {
             form.reset();
             swal({
