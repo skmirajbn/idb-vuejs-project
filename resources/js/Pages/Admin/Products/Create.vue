@@ -106,7 +106,7 @@
                             class=""
                             id="name"
                             type="file"
-                            @input="handlePhotoChange"
+                            @input="handleProductImage"
                         />
 
                         <InputError
@@ -116,7 +116,7 @@
                     </div>
                     <img
                         class="w-40 h-40"
-                        ref="imageSrc"
+                        ref="productImage"
                         src="https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ="
                         alt=""
                     />
@@ -140,6 +140,13 @@
                                         class="rounded-lg"
                                         id="name"
                                         type="file"
+                                        @input="
+                                            (e) =>
+                                                handleVariationProductImage(
+                                                    e,
+                                                    index
+                                                )
+                                        "
                                     />
                                     <InputError
                                         class="mt-2"
@@ -150,6 +157,9 @@
                                         "
                                     />
                                     <img
+                                        :ref="
+                                            (e) => (productItemImage[index] = e)
+                                        "
                                         class="object-cover w-40 h-40"
                                         src="https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ="
                                         alt=""
@@ -250,11 +260,7 @@
                         +
                     </div>
 
-                    <button
-                        type="submit"
-                        class="btn btn-primary"
-                        @click="handleAddProductItem"
-                    >
+                    <button type="submit" class="btn btn-primary">
                         Add Product
                     </button>
                 </form>
@@ -269,8 +275,10 @@ import { Link, useForm, usePage } from "@inertiajs/vue3";
 import { inject, ref } from "vue";
 
 const swal = inject("$swal");
-const imageSrc = ref(null);
 const page = usePage();
+
+const productImage = ref(null);
+const productItemImage = ref([]);
 
 // Define props
 defineProps({
@@ -349,15 +357,30 @@ const addProductItem = () => {
  * @param {Event} e - The change event object.
  * @return {void} This function does not return anything.
  */
-const handlePhotoChange = (e) => {
+const handleProductImage = (e) => {
     const file = e.target.files[0];
-    form.image = file;
+    form.product.image = file;
+
+    console.log(file);
 
     // Show the image
     if (file) {
         const reader = new FileReader();
         reader.onload = (event) => {
-            imageSrc.value.src = event.target.result;
+            productImage.value.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+};
+
+const handleVariationProductImage = (e, index) => {
+    const file = e.target.files[0];
+    form.product.productItems[index].image = file;
+    // Show the image
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            productItemImage.value[index].src = event.target.result;
         };
         reader.readAsDataURL(file);
     }
