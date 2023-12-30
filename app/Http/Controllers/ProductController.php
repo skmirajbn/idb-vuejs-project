@@ -22,7 +22,7 @@ class ProductController extends Controller {
      * Show the form for creating a new resource.
      */
     public function create() {
-        $categories = Category::all();
+        $categories = Category::with('variations.variationOptions')->get();
         return Inertia::render('Admin/Products/Create', compact('categories'));
     }
 

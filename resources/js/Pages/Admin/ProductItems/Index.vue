@@ -22,6 +22,7 @@
                             <th>Price</th>
                             <th>Stock</th>
                             <th>Image</th>
+                            <th>Variations</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -37,6 +38,7 @@
                             <td class="font-bold">
                                 {{ productItem.stock }}
                             </td>
+
                             <td class="font-bold">
                                 <img
                                     class="object-cover rounded-lg w-14 h-14"
@@ -47,6 +49,14 @@
                                     "
                                     alt=""
                                 />
+                            </td>
+                            <td>
+                                <div
+                                    v-for="variationOption in productItem.variation_options"
+                                >
+                                    <p>{{ variationOption.variation.name }}</p>
+                                    <p>{{ variationOption.value }}</p>
+                                </div>
                             </td>
                             <td class="flex gap-2">
                                 <Link

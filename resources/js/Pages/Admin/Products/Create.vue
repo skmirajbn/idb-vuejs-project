@@ -49,6 +49,7 @@
                             name=""
                             id=""
                             v-model="form.category_id"
+                            @change="handleCategoryChange"
                         >
                             <option value=""></option>
                             <option
@@ -78,7 +79,7 @@
 
                     <div class="flex flex-col gap-2">
                         <label class="text-xl font-bold" for="name"
-                            >Image</label
+                            >Product Image</label
                         >
                         <input
                             class=""
@@ -95,6 +96,52 @@
                         alt=""
                     />
 
+                    <!-- Variatoins Section -->
+                    <h3 class="text-xl font-bold">Variations</h3>
+                    <div v-if="hasVariation" class="">
+                        <div
+                            class="flex flex-col gap-4 p-6 bg-gray-400 rounded-lg"
+                        >
+                            <div
+                                class="flex flex-col gap-2"
+                                v-for="variation in selectedCategory.variations"
+                            >
+                                <label class="text-xl font-bold" for="name">
+                                    {{ variation.name }}
+                                </label>
+                                <select class="rounded-lg" name="" id="">
+                                    <option value="">
+                                        Select {{ variation.name }}
+                                    </option>
+                                    <option
+                                        :value="option.value"
+                                        v-for="option in variation.variation_options"
+                                    >
+                                        {{ option.value }}
+                                    </option>
+                                </select>
+                                <InputError
+                                    class="mt-2"
+                                    :message="form.errors.value"
+                                />
+                            </div>
+                            <di class="flex flex-col gap-2">
+                                <label class="text-xl font-bold" for="name">
+                                    Variation Image
+                                </label>
+                                <input type="file" />
+                                <img
+                                    class="object-cover w-28 h-28"
+                                    src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"
+                                    alt=""
+                                />
+                            </di>
+                        </div>
+                    </div>
+                    <button class="ml-auto btn btn-info w-fit">
+                        Add More Variation +
+                    </button>
+
                     <button type="submit" class="btn btn-primary">
                         Add Product
                     </button>
@@ -107,17 +154,19 @@
 <script setup>
 import InputError from "@/Components/InputError.vue";
 import AdminLayout from "@/Layouts/AdminLayout.vue";
-import { Link, useForm } from "@inertiajs/vue3";
+import { Link, useForm, usePage } from "@inertiajs/vue3";
 import { inject, ref } from "vue";
 
 const swal = inject("$swal");
 const imageSrc = ref(null);
+const page = usePage();
 
 defineProps({
     categories: Object,
     default: "",
 });
-
+const hasVariation = ref(false);
+let selectedCategory = ref({});
 const form = useForm({
     name: "",
     description: "",
@@ -129,6 +178,20 @@ const form = useForm({
 
     remember: false,
 });
+
+const handleCategoryChange = () => {
+    let categories = page.props.categories;
+    let selectectCategoryId = form.category_id;
+    selectedCategory = categories.find(
+        (category) => category.id == selectectCategoryId
+    );
+    console.log(selectedCategory);
+    if (selectedCategory.variations.length > 0) {
+        hasVariation.value = true;
+    } else {
+        hasVariation.value = false;
+    }
+};
 
 const handlePhotoChange = (e) => {
     const file = e.target.files[0];

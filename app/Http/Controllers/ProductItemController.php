@@ -14,7 +14,7 @@ class ProductItemController extends Controller {
      * Display a listing of the resource.
      */
     public function index() {
-        $productItems = ProductItem::with('product', 'variationOption')->get();
+        $productItems = ProductItem::with('product', 'variationOptions.variation')->get();
         return Inertia::render('Admin/ProductItems/Index', compact('productItems'));
     }
 
@@ -45,7 +45,6 @@ class ProductItemController extends Controller {
                 'variation_option_id' => 'required',
             ]);
 
-            // if image is available save to storage and save the image name to database
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $imageName = time() . '.' . $image->getClientOriginalExtension();

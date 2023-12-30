@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class ProductItem extends Model {
     use HasFactory;
@@ -18,7 +19,7 @@ class ProductItem extends Model {
     public function product() {
         return $this->belongsTo(Product::class);
     }
-    public function variationOption() {
-        return $this->belongsTo(VariationOption::class);
+    public function variationOptions() {
+        return $this->BelongsToMany(VariationOption::class, 'product_configurations', 'product_item_id', 'variation_option_id');
     }
 }
