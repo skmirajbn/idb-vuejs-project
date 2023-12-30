@@ -31,14 +31,29 @@ class ProductController extends Controller {
      */
     public function store(Request $request) {
         // validating the request
-        $validated = $request->validate([
-            'name' => 'required',
-            'category_id' => 'required',
-            'price' => 'required|numeric',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'status' => 'required',
-            'description' => 'required',
+        $request->validate([
+            'hasVariation' => 'required|boolean',
+            'product' => 'required|array',
+            'product.name' => 'required|string',
+            'product.description' => 'required|string',
+            'product.category_id' => 'required|numeric',
+            'product.image' => 'required|string',
+            'product.price' => 'required|numeric',
+            'product.stock' => 'required|numeric',
+            'product.status' => 'required|numeric',
+            'product.productItems' => 'array', // Made productItems optional
+            'product.productItems.*.product_id' => 'required_with:product.productItems|numeric',
+            'product.productItems.*.image' => 'required_with:product.productItems|string',
+            'product.productItems.*.stock' => 'required_with:product.productItems|numeric',
+            'product.productItems.*.price' => 'required_with:product.productItems|numeric',
+            'product.productItems.*.productConfigurations' => 'required_with:product.productItems|array',
+            'product.productItems.*.productConfigurations.*.prodcut_item_id' => 'required_with:product.productItems|numeric',
+            'product.productItems.*.productConfigurations.*.variation_id' => 'required_with:product.productItems|numeric',
+            'product.productItems.*.productConfigurations.*.variation_option_id' => 'required_with:product.productItems|numeric',
+            'remember' => 'required|boolean',
         ]);
+
+        return $request->all();
 
         // if image is available save to storage and save the image name to database
         if ($request->hasFile('image')) {

@@ -21,9 +21,12 @@
                             class="rounded-lg"
                             id="name"
                             type="text"
-                            v-model="form.name"
+                            v-model="form.product.name"
                         />
-                        <InputError class="mt-2" :message="form.errors.name" />
+                        <InputError
+                            class="mt-2"
+                            :message="form.errors['product.name']"
+                        />
                     </div>
                     <div class="flex flex-col gap-2">
                         <label class="text-xl font-bold" for="name"
@@ -33,11 +36,11 @@
                             class="rounded-lg"
                             id="name"
                             type="text"
-                            v-model="form.description"
+                            v-model="form.product.description"
                         />
                         <InputError
                             class="mt-2"
-                            :message="form.errors.description"
+                            :message="form.errors['product.description']"
                         />
                     </div>
                     <div class="flex flex-col gap-2">
@@ -48,7 +51,7 @@
                             class="rounded-lg"
                             name=""
                             id=""
-                            v-model="form.category_id"
+                            v-model="form.product.category_id"
                             @change="handleCategoryChange"
                         >
                             <option value=""></option>
@@ -61,7 +64,7 @@
                         </select>
                         <InputError
                             class="mt-2"
-                            :message="form.errors.category_id"
+                            :message="form.errors['product.category_id']"
                         />
                     </div>
                     <div class="flex flex-col gap-2">
@@ -72,9 +75,27 @@
                             class="rounded-lg"
                             id="name"
                             type="text"
-                            v-model="form.price"
+                            v-model="form.product.price"
                         />
-                        <InputError class="mt-2" :message="form.errors.price" />
+                        <InputError
+                            class="mt-2"
+                            :message="form.errors['product.price']"
+                        />
+                    </div>
+                    <div v-if="!hasVariation" class="flex flex-col gap-2">
+                        <label class="text-xl font-bold" for="name"
+                            >Stock</label
+                        >
+                        <input
+                            class="rounded-lg"
+                            id="name"
+                            type="text"
+                            v-model="form.product.stock"
+                        />
+                        <InputError
+                            class="mt-2"
+                            :message="form.errors['product.stock']"
+                        />
                     </div>
 
                     <div class="flex flex-col gap-2">
@@ -87,7 +108,11 @@
                             type="file"
                             @input="handlePhotoChange"
                         />
-                        <InputError class="mt-2" :message="form.errors.image" />
+
+                        <InputError
+                            class="mt-2"
+                            :message="form.errors['product.image']"
+                        />
                     </div>
                     <img
                         class="w-40 h-40"
@@ -97,58 +122,139 @@
                     />
 
                     <!-- Variatoins Section -->
-                    <div v-if="hasVariation" class="space-y-4">
-                        <h3 class="text-xl font-bold">Variations</h3>
-                        <div
-                            class="flex flex-col gap-4 p-6 bg-gray-400 rounded-lg"
-                        >
+                    <div v-if="form.hasVariation" class="space-y-4">
+                        <h3 class="text-xl font-bold">
+                            Product Item Variations
+                        </h3>
+                        <div class="flex flex-col gap-4 rounded-lg">
                             <div
-                                class="flex flex-col gap-2"
-                                v-for="variation in selectedCategory.variations"
+                                class="flex flex-col gap-2 p-6 bg-gray-400 rounded-lg"
+                                v-for="(productItem, index) in form.product
+                                    .productItems"
                             >
-                                <label class="text-xl font-bold" for="name">
-                                    {{ variation.name }}
-                                </label>
-                                <select
-                                    class="rounded-lg"
-                                    id=""
-                                    v-model="
-                                        form.variation_options[variation.id]
-                                    "
-                                >
-                                    <option value="">
-                                        Select {{ variation.name }}
-                                    </option>
-                                    <option
-                                        :value="option.id"
-                                        v-for="option in variation.variation_options"
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-xl font-bold" for="name"
+                                        >Product Item Image</label
                                     >
-                                        {{ option.value }}
-                                    </option>
-                                </select>
-                                <InputError
-                                    class="mt-2"
-                                    :message="form.errors.value"
-                                />
+                                    <input
+                                        class="rounded-lg"
+                                        id="name"
+                                        type="file"
+                                    />
+                                    <InputError
+                                        class="mt-2"
+                                        :message="
+                                            form.errors[
+                                                `product.productItems.${index}.image`
+                                            ]
+                                        "
+                                    />
+                                    <img
+                                        class="object-cover w-40 h-40"
+                                        src="https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ="
+                                        alt=""
+                                    />
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-xl font-bold" for="name"
+                                        >Stock</label
+                                    >
+                                    <input
+                                        class="rounded-lg"
+                                        id="name"
+                                        type="text"
+                                        v-model="
+                                            form.product.productItems[index]
+                                                .stock
+                                        "
+                                    />
+                                    <InputError
+                                        class="mt-2"
+                                        :message="
+                                            form.errors[
+                                                `product.productItems.${index}.stock`
+                                            ]
+                                        "
+                                    />
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-xl font-bold" for="name"
+                                        >Price</label
+                                    >
+                                    <input
+                                        class="rounded-lg"
+                                        id="name"
+                                        type="text"
+                                        v-model="
+                                            form.product.productItems[index]
+                                                .price
+                                        "
+                                    />
+                                    <InputError
+                                        class="mt-2"
+                                        :message="
+                                            form.errors[
+                                                `product.productItems.${index}.price`
+                                            ]
+                                        "
+                                    />
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <div
+                                        class="flex flex-col gap-2"
+                                        v-for="(
+                                            variation, Configindex
+                                        ) in selectedCategory.variations"
+                                    >
+                                        <label for="" class="text-xl font-bold"
+                                            >{{ variation.name }}
+                                        </label>
+                                        <select
+                                            class="w-full rounded-lg"
+                                            v-model="
+                                                form.product.productItems[index]
+                                                    .productConfigurations[
+                                                    Configindex
+                                                ].variation_option_id
+                                            "
+                                        >
+                                            <option value="">
+                                                Select {{ variation.name }}
+                                            </option>
+                                            <option
+                                                v-for="option in variation.variation_options"
+                                                :value="option.id"
+                                            >
+                                                {{ option.value }}
+                                            </option>
+                                        </select>
+
+                                        <InputError
+                                            class="mt-2"
+                                            :message="
+                                                form.errors[
+                                                    `product.productItems.${index}.productConfigurations.${Configindex}.variation_option_id`
+                                                ]
+                                            "
+                                        />
+                                    </div>
+                                </div>
                             </div>
-                            <di class="flex flex-col gap-2">
-                                <label class="text-xl font-bold" for="name">
-                                    Variation Image
-                                </label>
-                                <input type="file" />
-                                <img
-                                    class="object-cover w-28 h-28"
-                                    src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"
-                                    alt=""
-                                />
-                            </di>
                         </div>
                     </div>
-                    <button class="ml-auto btn btn-info w-fit">
-                        Add More Variation +
-                    </button>
+                    <div
+                        v-if="form.hasVariation"
+                        class="ml-auto btn btn-info w-fit"
+                        @click="addProductItem"
+                    >
+                        +
+                    </div>
 
-                    <button type="submit" class="btn btn-primary">
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                        @click="handleAddProductItem"
+                    >
                         Add Product
                     </button>
                 </form>
@@ -172,42 +278,77 @@ defineProps({
     default: "",
 });
 
-// Variables
-const hasVariation = ref(false);
 let selectedCategory = ref({});
 const form = useForm({
-    name: "",
-    description: "",
-    category_id: "",
-    image: "",
-    price: "",
-    status: 1,
-    stock: "",
-    variation_options: {},
-    variation_options_ids: [],
+    hasVariation: false,
+    product: {
+        name: "",
+        description: "",
+        category_id: "",
+        image: "",
+        price: "",
+        stock: "",
+        status: 1,
+        productItems: [],
+    },
     remember: false,
 });
 
 // Event handlers
+
+/**
+ * Handles the change of the category.
+ *
+ * @return {void} This function does not return anything.
+ */
 const handleCategoryChange = () => {
     let categories = page.props.categories;
-    let selectectCategoryId = form.category_id;
+    let selectectCategoryId = form.product.category_id;
     selectedCategory = categories.find(
         (category) => category.id == selectectCategoryId
     );
+    addProductItem();
+    console.log(form);
+};
 
+/**
+ * Generates a product item and adds it to the form's `product.productItems` array.
+ *
+ * @return {void} This function does not return anything.
+ */
+const addProductItem = () => {
+    // build product configuration
     if (selectedCategory.variations.length > 0) {
-        hasVariation.value = true;
+        form.hasVariation = true;
 
-        // Set initial blank value for each variation
-        selectedCategory.variations.forEach((variation) => {
-            form.variation_options[variation.id] = "";
+        let productConfigurations = selectedCategory.variations.map(
+            (variation) => {
+                return {
+                    prodcut_item_id: "",
+                    variation_id: variation.id,
+                    variation_option_id: "",
+                };
+            }
+        );
+        // Add one Product Items
+        form.product.productItems.push({
+            product_id: "",
+            image: "",
+            stock: "",
+            price: "",
+            productConfigurations,
         });
     } else {
-        hasVariation.value = false;
+        form.hasVariation = false;
     }
 };
 
+/**
+ * Handles the change event when a photo is selected.
+ *
+ * @param {Event} e - The change event object.
+ * @return {void} This function does not return anything.
+ */
 const handlePhotoChange = (e) => {
     const file = e.target.files[0];
     form.image = file;
@@ -222,11 +363,14 @@ const handlePhotoChange = (e) => {
     }
 };
 
+/**
+ * Handles the form submission.
+ *
+ * @return {void}
+ */
 const handleSubmit = () => {
-    // make array of selected variation ids
-    selectedCategory.variations.forEach((variation) => {
-        form.variation_options_ids.push(variation.id);
-    });
+    // console the form
+    console.log(form);
 
     // submit form
     form.post(route("admin.product.store"), {
