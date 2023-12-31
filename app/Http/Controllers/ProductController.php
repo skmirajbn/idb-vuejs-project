@@ -34,6 +34,7 @@ class ProductController extends Controller {
      * Store a newly created resource in storage.
      */
     public function store(Request $request) {
+        // dd($request->all());
         // validating the request
         $request->validate([
             'hasVariation' => 'required|boolean',
@@ -43,7 +44,7 @@ class ProductController extends Controller {
             'product.category_id' => 'required|numeric',
             'product.image' => 'required|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'product.price' => 'required|numeric',
-            'product.stock' => 'required|numeric',
+            'product.stock' => $request->hasVariation == 0 ? 'required|numeric' : 'numeric|nullable',
             'product.status' => 'required|numeric',
             'product.productItems' => 'array',
             'product.productItems.*.image' => 'required_with:product.productItems|required|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -114,11 +115,11 @@ class ProductController extends Controller {
             if ($request->hasVariation == 0) {
                 if ($request->product) {
                     $product = $request->product;
-                    if ($product['image']) {
-                        $image = $product['image'];
-                        $imageName = time() . '.' . $image->getClientOriginalExtension();
-                        $image->storeAs('public/images', $imageName);
-                    }
+
+                    $image = $product['image'];
+                    $imageName = uniqid() . '_' . time() . '.' . $image->getClientOriginalExtension();
+                    $image->storeAs('public/images', $imageName);
+
 
                     // Insert in the Product Table
                     $createdProduct = Product::create([
@@ -151,11 +152,10 @@ class ProductController extends Controller {
             if ($request->hasVariation == 1) {
                 if ($request->product) {
                     $product = $request->product;
-                    if ($product['image']) {
-                        $image = $product['image'];
-                        $imageName = time() . '.' . $image->getClientOriginalExtension();
-                        $image->storeAs('public/images', $imageName);
-                    }
+                    $image = $product['image'];
+                    $imageName = uniqid() . '_' . time() . '.' . $image->getClientOriginalExtension();
+                    $image->storeAs('public/images', $imageName);
+
                     $createdProduct = Product::create([
                         'name' => $product['name'],
                         'description' => $product['description'],
@@ -168,18 +168,18 @@ class ProductController extends Controller {
                     $productItems = $product['productItems'];
                     // Insert in the ProductItem Table
                     foreach ($productItems as $productItem) {
-                        if ($productItem['image']) {
-                            $image = $productItem['image'];
-                            $imageName = time() . '.' . $image->getClientOriginalExtension();
-                            $image->storeAs('public/images', $imageName);
-                        }
+
+                        $itemImage = $productItem['image'];
+                        $itemImageName = uniqid() . '_' . time() . '.' . $itemImage->getClientOriginalExtension();
+                        $itemImage->storeAs('public/images', $itemImageName);
+
 
 
                         $createdProductItem = ProductItem::create([
                             'product_id' => $createdProduct->id,
                             'price' => $productItem['price'],
                             'stock' => $productItem['stock'],
-                            'image' => $imageName,
+                            'image' => $itemImageName,
                         ]);
 
                         // Insert in the ProductConfiguration Table

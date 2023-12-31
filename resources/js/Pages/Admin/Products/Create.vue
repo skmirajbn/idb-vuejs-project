@@ -82,7 +82,7 @@
                             :message="form.errors['product.price']"
                         />
                     </div>
-                    <div v-if="!hasVariation" class="flex flex-col gap-2">
+                    <div v-if="!form.hasVariation" class="flex flex-col gap-2">
                         <label class="text-xl font-bold" for="name"
                             >Stock</label
                         >

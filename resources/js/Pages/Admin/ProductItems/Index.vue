@@ -30,7 +30,7 @@
                         <tr v-for="productItem in productItems">
                             <th>{{ productItem.id }}</th>
                             <td class="font-bold">
-                                {{ productItem.product.name }}
+                                {{ productItem.product?.name }}
                             </td>
                             <td class="font-bold">
                                 {{ productItem.price }}
@@ -72,7 +72,7 @@
                                 >
                                 <button
                                     class="btn btn-warning"
-                                    @click="deleteDistrict(productItem.id)"
+                                    @click="deleteProductItem(productItem.id)"
                                 >
                                     Delete
                                 </button>
@@ -94,14 +94,14 @@ defineProps({
     productItems: Object,
 });
 const swal = inject("$swal");
-const deleteDistrict = (id) => {
+const deleteProductItem = (id) => {
     router.visit(route("admin.productItem.destroy", id), {
         method: "delete",
         onSuccess: () => {
             swal({
                 icon: "success",
-                title: "District Deleted",
-                text: "District Deleted Successfully",
+                title: "ProductItem Deleted",
+                text: "ProductItem Deleted Successfully",
             });
         },
     });
